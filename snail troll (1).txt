@@ -143,11 +143,16 @@ function CharacterAdded(NewChar: Model)
 	RemoveTouchControls()
 	delay(2, StopAnimations)
 
-	--// Modify Humanoid 
-	Humanoid.WalkSpeed = 0
-	Humanoid.HipHeight = 0
-	Humanoid.AutoRotate = false
-	Humanoid.PlatformStand = true 
+	--// Modify Humanoid (only if script intends to override default player movement)
+	--// Keep humanoid movement enabled by default so players can still walk unless config disables it.
+	if not Config.DisableDefaultHumanoidMovement then
+		-- leave player's existing movement settings intact so normal walking still works
+	else
+		Humanoid.WalkSpeed = 0
+		Humanoid.HipHeight = 0
+		Humanoid.AutoRotate = false
+		Humanoid.PlatformStand = true
+	end
 end
 
 function RemoveTouchControls()
